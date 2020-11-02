@@ -126,7 +126,7 @@ class UserController extends Controller
         $user->syncPermissions($request->permissions);
         session()->flash('success', __('site.updated_successfully'));
 
-        return redirect()->route('dashboard.users.index');
+        return redirect()->route('dashboard.welcome');
 
     }//end of update
 

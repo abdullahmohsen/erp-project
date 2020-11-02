@@ -147,6 +147,20 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'ar' => [
+            'name' => 'arabic name',
+            'title' => 'arabic title',
+            'description' => 'arabic description',
+        ],
+
+        'en' => [
+            'name' => 'english name',
+            'title' => 'english title',
+            'description' => 'english description',
+        ],
+
+        'category_id' => 'category',
+    ],
 
 ];
