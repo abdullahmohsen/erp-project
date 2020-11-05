@@ -20,7 +20,11 @@
             @endif
 
             @if (auth()->user()->hasPermission('read_categories'))
-                <li><a href="{{ route('dashboard.categories.index') }}"><i class="fa fa-th"></i><span>@lang('site.categories')</span></a></li>
+                <li><a href="{{ route('dashboard.categories.index') }}"><i class="fa fa-th"></i><span>@lang('site.main-categories')</span></a></li>
+            @endif
+
+            @if (auth()->user()->hasPermission('read_categories'))
+                <li><a href="{{ route('dashboard.subcategories.index') }}"><i class="fa fa-th"></i><span>@lang('site.subcategories')</span></a></li>
             @endif
 
         </ul>

@@ -7,48 +7,38 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::parent()->when($request->search, function ($q) use ($request) {
+        $categories = Category::child()->when($request->search, function ($q) use ($request) {
 
             return $q->whereTranslationLike('name', '%' . $request->search . '%');
 
         })->latest()->paginate(5);
 
-        // $subCategories = Category::child()->when($request->search, function ($q) use ($request) {
-
-        //     return $q->whereTranslationLike('name', '%' . $request->search . '%');
-
-        // })->latest()->paginate(5);
-
-        return view('dashboard.categories.index', compact('categories'));
+        return view('dashboard.subcategories.index', compact('categories'));
 
     }//end of index
 
-    public function show($id)
-    {
-        $category = Category::where('id', $id)->get();
-        $subcategories = Category::findOrFail($id)->where('parent_id', $id)->get();
-        return view('dashboard.categories.show', compact('subcategories', 'category'));
-    }//end of show
-
     public function create()
     {
-        return view('dashboard.categories.create');
+        $categories = Category::parent()->orderBy('id', 'DESC')->get();
+        return view('dashboard.subcategories.create', compact('categories'));
 
     }//end of create
 
     public function store(Request $request)
     {
+        // return $request;
 
         $rules = [];
 
         foreach (config('translatable.locales') as $locale) {
 
             $rules += [$locale . '.name' => ['required', Rule::unique('category_translations', 'name')],
-            'slug' => ['required', Rule::unique('categories', 'slug')]];
+            'slug' => ['required', Rule::unique('categories', 'slug')],
+            'parent_id' => ['required', Rule::exists('categories', 'id')]];
 
         }//end of foreach
 
@@ -63,28 +53,32 @@ class CategoryController extends Controller
 
         try{
             Category::create($request->all());
+            // Category::create($request->except('_token'));
             session()->flash('success', __('site.added_successfully'));
-            return redirect()->route('dashboard.categories.index');
+            return redirect()->route('dashboard.subcategories.index');
         } catch(\Exception $ex){
             session()->flash('success', __('site.try_again'));
-            return redirect()->route('dashboard.categories.index');
+            return redirect()->route('dashboard.subcategories.index');
         }//end of try
     }//end of store
 
-    public function edit(Category $category)
+    public function edit($id)
     {
-        return view('dashboard.categories.edit', compact('category'));
-
+        $category = Category::findOrFail($id);
+        $categories = Category::parent()->orderBy('id', 'DESC')->get();
+        return view('dashboard.subcategories.edit', compact('category', 'categories'));
     }//end of edit
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
+        $category = Category::findOrFail($id);
         $rules = [];
 
         foreach (config('translatable.locales') as $locale) {
 
             $rules += [$locale . '.name' => ['required', Rule::unique('category_translations', 'name')->ignore($category->id, 'category_id')],
-                                            'slug' => ['required', Rule::unique('categories', 'slug')->ignore($category->id)]];
+                                'slug' => ['required', Rule::unique('categories', 'slug')->ignore($category->id)],
+                                'parent_id' => ['required', Rule::exists('categories', 'id')]];
         }//end of foreach
 
         $request->validate($rules);
@@ -94,26 +88,28 @@ class CategoryController extends Controller
         else
             $request->request->add(['is_active' => 1]);
 
+        // dd($request->all());
+
         try{
             $category->update($request->all());
             session()->flash('success', __('site.updated_successfully'));
-            return redirect()->route('dashboard.categories.index');
+            return redirect()->route('dashboard.subcategories.index');
         } catch(\Exception $ex){
             session()->flash('success', __('site.try_again'));
-            return redirect()->route('dashboard.categories.index');
-        }
+            return redirect()->route('dashboard.subcategories.index');
+        }//end of try
     }//end of update
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = Category::findOrFail($id);
         try{
             $category->delete();
             session()->flash('success', __('site.deleted_successfully'));
-            return redirect()->route('dashboard.categories.index');
+            return redirect()->route('dashboard.subcategories.index');
         } catch(\Exception $ex){
             session()->flash('success', __('site.try_again'));
-            return redirect()->route('dashboard.categories.index');
+            return redirect()->route('dashboard.subcategories.index');
         }//end of try
     }//end of destroy
-
 }//end of controller

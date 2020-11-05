@@ -30,7 +30,12 @@ Route::group(
             Route::resource('users', 'UserController')->except(['show']);
 
             //category routes
-            Route::resource('categories', 'CategoryController')->except(['show']);
+            Route::resource('categories', 'CategoryController');
+            // Route::get('changeStatus/{id}', 'CategoryController@changeStatus')->name('categories.status');
+
+            //SubCategory routes
+            Route::resource('subcategories', 'SubCategoryController')->except(['show']);
+
 
 
         });//end of dashboard routes

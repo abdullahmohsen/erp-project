@@ -8,7 +8,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('dashboard.categories.index') }}"> @lang('site.categories')</a></li>
+                <li><a href="{{ route('dashboard.subcategories.index') }}"> @lang('site.categories')</a></li>
                 <li class="active">@lang('site.add')</li>
             </ol>
         </section>
@@ -24,7 +24,7 @@
 
                     @include('partials._errors')
 
-                    <form action="{{ route('dashboard.categories.store') }}" method="post">
+                    <form action="{{ route('dashboard.subcategories.store') }}" method="post">
 
                         @csrf
                         @method('POST')
@@ -39,6 +39,19 @@
                         <div class="form-group">
                             <label>@lang('site.slug')</label>
                             <input type="text" name="slug" class="form-control" value="{{ old('slug') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>@lang('site.choosecategory')</label>
+                            <select name="parent_id" class="form-control select2" style="width: 100%;">
+                                <optgroup label="@lang('site.please_choose_the_category')">
+                                    @if($categories && $categories->count() > 0)
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </optgroup>
+                            </select>
                         </div>
 
                         <div class="form-group">

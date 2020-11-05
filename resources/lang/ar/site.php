@@ -49,6 +49,19 @@ return [
 
     'permissions' => 'الصلاحيات',
 
+    'main-categories' => 'الاقسام الرئيسيه',
+    'main-category' => 'القسم الرئيسي',
+    'subcategories' => 'الاقسام الفرعيه',
+    'status' => 'الحالة',
+    'slug' => 'Slug',
+    'notactive' => 'غير مفعل',
+    'active' => 'مفعل',
+    'try_again' => 'There is a problem, please try again',
+    'choosecategory' => 'أختر القسم الرئيسي',
+    'no_subcategoris_found' => 'لا يوجد اقسام فرعيه لهذا القسم',
+    'please_choose_the_category' => 'من فضلك اختر القسم الرئيسي',
+
+
     'categories' => 'الاقسام',
     'all_categories' => 'كل الاقسام',
     'name' => 'الاسم',

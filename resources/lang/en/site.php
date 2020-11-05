@@ -50,6 +50,19 @@ return [
     'permissions' => 'Permissions',
 
     'categories' => 'Categories',
+    'main-categories' => 'Main Categories',
+    'main-category' => 'Main Category',
+    'subcategories' => 'Subcategories',
+    'status' => 'Status',
+    'slug' => 'Slug',
+    'notactive' => 'Not Active',
+    'active' => 'Active',
+    'try_again' => 'There is a problem, please try again',
+    'choosecategory' => 'Choose the Main Category',
+    'no_subcategoris_found' => 'No Subcategoris Found for this Main Category',
+    'please_choose_the_category' => 'Please Choose the Main Category',
+
+
     'all_categories' => 'All Categories',
     'name' => 'Name',
     'description' => 'Description',

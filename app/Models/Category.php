@@ -14,8 +14,35 @@ class Category extends Model
     use Translatable;
     // use HasTranslations;
 
-    protected $guarded = [];
     public $translatedAttributes = ['name'];
     // public $translatable = ['name'];
 
+    protected $guarded = [];
+    // protected $fillable = ['parent_id', 'slug', 'is_active'];
+    // protected $hidden = ['translations'];
+    // protected $with = ['translations'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function scopeParent($query){
+        return $query -> whereNull('parent_id');
+    }
+
+    public function scopeChild($query){
+        return $query -> whereNotNull('parent_id');
+    }
+
+    public function getActive(){
+        return $this -> is_active == 0 ? __('site.notactive') : __('site.active');
+    }
+
+    public function _parent(){
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function _child(){
+        return $this->hasMany(self::class, 'parent_id');
+    }
 }//end of model

@@ -16,11 +16,11 @@ class CreateCategoryTranslationsTable extends Migration
         Schema::create('category_translations', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->string('locale')->index();
 
             $table->unique(['category_id','locale']);
+            $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
         });

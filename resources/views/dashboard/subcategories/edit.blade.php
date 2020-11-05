@@ -10,7 +10,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('dashboard.categories.index') }}"> @lang('site.categories')</a></li>
+                <li><a href="{{ route('dashboard.subcategories.index') }}"> @lang('site.categories')</a></li>
                 <li class="active">@lang('site.edit')</li>
             </ol>
         </section>
@@ -27,10 +27,10 @@
 
                     @include('partials._errors')
 
-                    <form action="{{ route('dashboard.categories.update', $category->id) }}" method="post">
+                    <form action="{{ route('dashboard.subcategories.update', $category->id) }}" method="post">
 
-                        {{ csrf_field() }}
-                        {{ method_field('put') }}
+                        @csrf
+                        @method('put')
 
                         <input type="hidden" class="form-control" value="{{ $category->id }}">
 
@@ -42,8 +42,23 @@
                         @endforeach
 
                         <div class="form-group">
-                        <label>@lang('site.slug')</label>
-                        <input type="text" name="slug" class="form-control" value="{{ $category->slug }}">
+                            <label>@lang('site.slug')</label>
+                            <input type="text" name="slug" class="form-control" value="{{ $category->slug }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>@lang('site.choosecategory')</label>
+                            <select name="parent_id" class="form-control select2" style="width: 100%;">
+                                <optgroup label="Please choose the category">
+                                    @if($categories && $categories->count() > 0)
+                                        @foreach($categories as $mainCategory)
+                                            <option
+                                                value="{{ $mainCategory->id }}" @if($mainCategory->id == $category->parent_id) selected @endif>{{ $mainCategory->name }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </optgroup>
+                            </select>
                         </div>
 
                         <div class="form-group">
