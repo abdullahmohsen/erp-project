@@ -53,6 +53,7 @@ return [
     'main-categories' => 'Main Categories',
     'main-category' => 'Main Category',
     'subcategories' => 'Subcategories',
+    'subcategory' => 'subcategory',
     'status' => 'Status',
     'slug' => 'Slug',
     'notactive' => 'Not Active',

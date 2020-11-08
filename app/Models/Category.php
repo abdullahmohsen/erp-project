@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 // use Astrotomic\Translatable\Contracts\Translatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Category extends Model
@@ -42,7 +43,9 @@ class Category extends Model
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    public function _child(){
-        return $this->hasMany(self::class, 'parent_id');
-    }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+
+    }//end of products
 }//end of model

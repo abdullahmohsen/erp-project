@@ -34,7 +34,7 @@
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
                                 @if (auth()->user()->hasPermission('create_users'))
-                                    <a href="{{ route('dashboard.users.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
+                                    <a href="{{ route('dashboard.users.create') }}" class="btn btn-primary"><i class="fa fa-user-plus"></i> @lang('site.add')</a>
                                 @else
                                     <button href="#" class="btn btn-primary disabled"><i class="fa fa-plus"></i> @lang('site.add')</button>
                                 @endif

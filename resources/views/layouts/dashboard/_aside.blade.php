@@ -13,10 +13,10 @@
         </div>
 
         <ul class="sidebar-menu" data-widget="tree">
-            <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-th"></i><span>@lang('site.dashboard')</span></a></li>
+            <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i><span>@lang('site.dashboard')</span></a></li>
 
             @if (auth()->user()->hasPermission('read_users'))
-                <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li>
+                <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-users"></i><span>@lang('site.users')</span></a></li>
             @endif
 
             @if (auth()->user()->hasPermission('read_categories'))
@@ -25,6 +25,10 @@
 
             @if (auth()->user()->hasPermission('read_categories'))
                 <li><a href="{{ route('dashboard.subcategories.index') }}"><i class="fa fa-th"></i><span>@lang('site.subcategories')</span></a></li>
+            @endif
+
+            @if (auth()->user()->hasPermission('read_products'))
+                <li><a href="{{ route('dashboard.products.index') }}"><i class="fa fa-th"></i><span>@lang('site.products')</span></a></li>
             @endif
 
         </ul>

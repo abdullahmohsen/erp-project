@@ -161,6 +161,10 @@ return [
         ],
 
         'category_id' => 'category',
+        'purchase_price' => 'purchase price',
+        'sale_price' => 'sale price',
+        'stock' => 'stock',
+        'phone.0' => 'phone',
     ],
 
 ];

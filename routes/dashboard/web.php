@@ -36,6 +36,10 @@ Route::group(
             //SubCategory routes
             Route::resource('subcategories', 'SubCategoryController')->except(['show']);
 
+            //Product routes
+            Route::resource('products', 'ProductCo\ntroller')->except(['show']);
+
+
 
 
         });//end of dashboard routes

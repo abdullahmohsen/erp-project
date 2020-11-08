@@ -52,6 +52,7 @@ return [
     'main-categories' => 'الاقسام الرئيسيه',
     'main-category' => 'القسم الرئيسي',
     'subcategories' => 'الاقسام الفرعيه',
+    'subcategory' => 'القسم الفرعي',
     'status' => 'الحالة',
     'slug' => 'Slug',
     'notactive' => 'غير مفعل',
